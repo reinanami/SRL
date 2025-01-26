@@ -1,1 +1,1 @@
-# SRL
+# Supervised-Reinforcement Learning Framework
