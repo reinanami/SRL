@@ -1,16 +1,15 @@
 # Supervised-Reinforcement Learning Framework
 Used for test purposes via Python!
 
-#Fixes needed:
-#STAGE 1
-Accuracy and fixing
+# Fixes needed:
+
+# STAGE 1: Organization!!! Accuracy and fixing
 - ORGANIZE!!! Example...Globally defining nObservations and nActions
 - Ensuring accuracy by thoroughly comparing against the documentation: https://pytorch.org/docs/stable/index.html
 - Adding enough comments so everyone can equally understand
 - Ensure that this works by asking a trusted expert
 - Make sure algorithms don't consume so much power that the potential Raspberry Pi microcontroller bakes (in Gen Z terms, cooked)
-#STAGE 2
-Testing
+# STAGE 2: Testing
 - Am not sure where to get training data from but ideally something related to aviation
 - Make sure that it can independently receive inputs via pretend-microcontrollers in real-time
 STAGE 3: Hardware flashing
