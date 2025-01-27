@@ -1,0 +1,65 @@
+import reinforcement
+import math
+import random
+import pickle
+from reinforcement import NNfilter
+
+def appendToFile(inputValue):
+    with open("input.txt", "a") as inputFile:
+        inputFile.write(f'{inputValue}\n')
+
+def feedback():
+    feedbackVal = int(input("Feedback value: "))
+    return feedbackVal
+
+def main():
+
+    filter = NNfilter()
+
+    # Adjust me later
+
+    desiredPoints = 100
+    adjustLearningRate = 0.01
+
+    count = 1
+
+    inputWeights = [1, 1.0]
+    outputWeights = 1.0
+    currentState = []
+
+    # Load inputFile
+
+    with open("input.txt", "r") as inputFile:
+        currentState = [float(line.strip()) for line in inputFile.readlines()]
+    
+    action = input("'E' for existing, any keys fore new: ")
+
+    if (action == 'E'):
+        filter.loadModel('trainingdata.pt')
+
+    feedbackVal = 0
+    pointsList = []
+
+    desiredPoints = float(input("insert desired value: "))
+
+    print("currentState: ", currentState)
+    
+    feedbackVal = feedback()
+    
+    filter.training(currentState, feedbackVal, adjustLearningRate, inputWeights, outputWeights, desiredPoints)
+
+    filter.saveModel('trainingdata.pt')
+
+    predictedState = filter.predict(currentState, inputWeights)
+
+    with open("input.txt", "w") as outputFile:
+        outputFile.write(f"{predictedState[-1]}\n")
+
+    appendToFile(predictedState[-1])
+
+    print(f"predictedState: ", predictedState[0])
+
+    pointsList.append(predictedState[0])
+
+if __name__ == "__main__":
+    main()
