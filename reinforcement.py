@@ -4,11 +4,14 @@ import torch.optim as optim
 import torch.nn.functional as F
 import math
 
+RANGE1 = 1
+RANGE2 = -1
+
 class NN(nn.Module):
 
     # nObservations, nActions were originally inputSize and hiddenSize
 
-    def __init__(self, nObservations = 1, nActions = 64):
+    def __init__(self, nObservations = 1, nActions = 1):
         super(NN, self).__init__()
 
         # I forgot the impact inputSize and hiddenSize has. Just play around I guess
@@ -34,7 +37,7 @@ class NN(nn.Module):
 class NNfilter:
 
     def __init__(self):
-        self.model = NN(nObservations  = 1, nActions = 64)
+        self.model = NN(nObservations  = 1, nActions = 1)
 
         # Using ADAM because we want to adjust the learning rate for reinforcement learning
         # ADAM works on CPU, CUDA, MPS
@@ -58,13 +61,15 @@ class NNfilter:
 
     def training(self, currentState, feedback, adjustLearningRate, inputWeights, outputWeight, desiredPoints):
 
-        # Set the range here
-        RANGE1 = -1
-        RANGE2 = 1
-
         self.model.train() # Initzalize 
 
+        nObservations = len(currentState)
+        self.model = NN(nObservations=nObservations, nActions =1)
+
         tensorsInput = torch.tensor(currentState, dtype=torch.float32).view(RANGE1, RANGE2)
+
+        # Input weights aplied
+
         tensorsInput = tensorsInput * torch.tensor(inputWeights, dtype=torch.float32).view(RANGE1, RANGE2)
 
         self.optimizer.zero_grad()
@@ -96,10 +101,6 @@ class NNfilter:
             param_groups['lr'] = adjustLearningRate
 
     def predict(self, inputs, appendWeights):
-
-        # Set the range here, make it global later I'm lazy
-        RANGE1 = -1
-        RANGE2 = 1
 
         with torch.no_grad():
 
