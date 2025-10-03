@@ -4,10 +4,15 @@ import random
 import pickle
 from reinforcement import NNfilter
 
+# Compare and edit this code based on the existing SRL framework
+# Just shape it so that it's GN&C based and also it can use other types of training data
+
+# Connect to MATLAB PID data
 def appendToFile(inputValue):
     with open("input.txt", "a") as inputFile:
         inputFile.write(f'{inputValue}\n')
 
+# Make sure this is actually computing for the Q-learning algorithm
 def feedback():
     feedbackVal = int(input("Feedback value: "))
     return feedbackVal
