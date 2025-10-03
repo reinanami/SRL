@@ -6,6 +6,7 @@ from reinforcement import NNfilter
 
 # Compare and edit this code based on the existing SRL framework
 # Just shape it so that it's GN&C based and also it can use other types of training data
+# Use MATLAB
 
 # Connect to MATLAB PID data
 def appendToFile(inputValue):
