@@ -1,4 +1,4 @@
-# Supervised-Reinforcement Learning Framework
+# Supervised-Reinforcement Learning Framework for Guidance, Navigation & Control
 Used for test purposes via Python!
 
 # Fixes needed:
