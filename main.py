@@ -2,6 +2,7 @@ import reinforcement
 import math
 import random
 import pickle
+import matplotlib.pyplot as plt
 from reinforcement import NNfilter
 
 # Compare and edit this code based on the existing SRL framework
@@ -17,6 +18,17 @@ def appendToFile(inputValue):
 def feedback():
     feedbackVal = int(input("Feedback value: "))
     return feedbackVal
+
+def plotting(data):
+
+    plt.plot(data, marker='o')
+
+    plt.title("Title")
+    plt.xlabel("Index")
+    plt.ylabel("Value")
+
+    plt.show()
+
 
 def main():
 
@@ -48,24 +60,27 @@ def main():
 
     desiredPoints = float(input("insert desired value: "))
 
-    print("currentState: ", currentState)
-    
-    feedbackVal = feedback()
-    
-    filter.training(currentState, feedbackVal, adjustLearningRate, inputWeights, outputWeights, desiredPoints)
+    while(1):
+        print("currentState: ", currentState)
+        
+        feedbackVal = feedback()
+        
+        filter.training(currentState, feedbackVal, adjustLearningRate, inputWeights, outputWeights, desiredPoints)
 
-    filter.saveModel('trainingdata.pt')
+        filter.saveModel('trainingdata.pt')
 
-    predictedState = filter.predict(currentState, inputWeights)
+        predictedState = filter.predict(currentState, inputWeights)
 
-    with open("input.txt", "w") as outputFile:
-        outputFile.write(f"{predictedState[-1]}\n")
+        with open("input.txt", "w") as outputFile:
+            outputFile.write(f"{predictedState[-1]}\n")
 
-    appendToFile(predictedState[-1])
+        appendToFile(predictedState[-1])
 
-    print(f"predictedState: ", predictedState[0])
+        print(f"predictedState: ", predictedState[0])
 
-    pointsList.append(predictedState[0])
+        pointsList.append(predictedState[0])
+
+        plotting(pointsList)
 
 if __name__ == "__main__":
     main()
